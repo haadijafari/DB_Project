@@ -1,0 +1,19 @@
+/**************** Dark / Light Mode ****************/
+.dark-light-mode {
+  z-index: 100;
+}
+.dark-light-mode ul {
+  justify-content: space-between;
+}
+/**************** Card ****************/
+.card-cover-image {
+  position: absolute;
+  filter: brightness(50%);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.card-info {
+    z-index: 1;
+}
