@@ -1,0 +1,11 @@
+django>4.2,<4.3
+python-dotenv
+pillow
+django-taggit
+
+# for MySQL database
+# mysqlclient
+
+# for developement
+django-extensions
+django-debug-toolbar
