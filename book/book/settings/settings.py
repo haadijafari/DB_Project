@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 
+    'django_humanize',
     'taggit',
     
     # Project apss

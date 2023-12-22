@@ -1,0 +1,38 @@
+{% load static %}
+{% load humanizelib %}
+{% load index_tags %}
+
+<!-- ======= Book Section ======= -->
+<section id="book" class="book shadow-lg my-5 ms-4 ms-lg-2 me-4 p-5">
+    <div class="container">
+
+        <div class="section-title">
+            <h1 class="text-primary">Book</h1>
+            <p>Your book library</p>
+        </div>
+
+        {% post_categories %}
+
+        <div class="row book-container">
+          {% for book in books %}
+          <div class="col-lg-4 col-md-6 book-item
+          {% for cat in book.category.all %}
+          filter-{{cat.name}} 
+          {% endfor %}
+          ">
+            <div class="book-wrap">
+              <img src="{% static 'img/test/wolf.jpg' %}" class="img-fluid" alt="{{book.name}} Image">
+              <div class="book-info">
+                <h4>{{book.name}}</h4>
+                {% for cat in book.category.all %}
+                  <p>{{cat.name}}</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ======= End Book Section ======= -->

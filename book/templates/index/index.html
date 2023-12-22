@@ -1,4 +1,5 @@
 {% load static %}
+{% load index_tags %}
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" ml-update="aware">
@@ -15,38 +16,16 @@
     <!-- CSS Vendors -->
     <link rel="stylesheet" href="{% static 'vendor/bootstrap-5.3.2/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons-1.11.2/font/bootstrap-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/aos/css/aos.css' %}">
     <!-- Index CSS -->
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 </head>
 <body>
-    <nav class="py-2 bg-body-tertiary border-bottom">
-        <div class="container d-flex flex-wrap">
-          <ul class="nav me-auto">
-            <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#book_library" class="nav-link link-body-emphasis px-2">Book Library</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">About</a></li>
-          </ul>
-          <ul class="nav">
-            <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Login</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Sign up</a></li>
-          </ul>
-        </div>
-    </nav>
-    <header class="py-3 mb-4 border-bottom">
-        <div class="container d-flex flex-wrap justify-content-center">
-          <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <span class="fs-4">Double header</span>
-          </a>
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-          </form>
-        </div>
-    </header>
+    <!-- Navbar and Header -->
+    {% include 'index/index-navbar.html' %}
 
+    <!-- Dark Mode -->
     <div class="dark-light-mode dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
       <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (dark)">
         <i class="bi bi-moon-stars-fill"></i>
@@ -70,41 +49,15 @@
       </ul>
     </div>
 
-
+    <!-- Main -->
     <main>
-        <div class="container px-4 py-5" id="book_library">
-            <h2 class="pb-2 border-bottom">Book Library</h2>
-        
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 align-items-stretch g-4 py-5">
-              {% for i in '0123456789'|make_list %}
-              <div class="col">
-                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-                  <img src="{% static 'img/test/wolf.jpg' %}" alt="Wolf Image" class="card-cover-image">
-                  <div class="card-info d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h3>
-                    <ul class="d-flex list-unstyled mt-auto">
-                      <li class="me-auto">
-                        <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                      </li>
-                      <li class="d-flex align-items-center me-3">
-                        <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                        <small>Earth</small>
-                      </li>
-                      <li class="d-flex align-items-center">
-                        <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                        <small>3d</small>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-        </div>
+        {% all_books %}
     </main>
 
     <!-- JS Vendors -->
     <script src="{% static 'vendor/bootstrap-5.3.2/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/aos/js/aos.js' %}"></script>
+    <script src="{% static 'vendor/isotope-docs/isotope.pkgd.min.js' %}"></script>
     
     <!-- Index JS -->
     <script src="{% static 'js/index.js' %}"></script>
