@@ -3,7 +3,7 @@ from index.models import Book, Category
 
 
 @admin.register(Book)
-class PortfolioAdmin(admin.ModelAdmin):
+class BookAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     list_display = (
         'name',
@@ -11,10 +11,11 @@ class PortfolioAdmin(admin.ModelAdmin):
         'status',
         'age_group',
         'created_date',
-        'reading_date',
+        'reading_date_start',
+        'reading_date_end',
     )
     
-    list_filter = ('status', 'category', 'created_date', 'reading_date', )
+    list_filter = ('status', 'category', 'reading_date_start', 'reading_date_end', )
     search_fields = ('name', 'author', )
 
 

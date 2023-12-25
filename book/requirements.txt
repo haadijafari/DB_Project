@@ -3,6 +3,7 @@ python-dotenv
 pillow
 django-taggit
 django-humanize
+pymupdf
 
 # for MySQL database
 # mysqlclient

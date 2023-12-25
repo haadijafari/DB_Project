@@ -1,6 +1,19 @@
+import os
+import fitz
 from django.db import models
 from taggit.managers import TaggableManager
 from django.utils.translation import gettext as _
+from index.validators import validate_file_extension
+from PIL import Image
+from django.core.files.base import ContentFile
+from io import BytesIO
+from book.settings.settings import DEBUG
+
+if DEBUG:
+    from book.settings.dev import MEDIA_ROOT
+else:
+    from book.settings.production import MEDIA_ROOT
+
 
 
 class Category(models.Model):
@@ -28,5 +41,36 @@ class Book(models.Model):
         auto_now_add=True, verbose_name="Creation date")
     latest_update = models.DateTimeField(
         null=True, verbose_name="Latest update date", auto_now=True,)
-    reading_date = models.DateTimeField(_("Reading date"), auto_now=False, auto_now_add=False)
+    reading_date_start = models.DateTimeField(_("Reading date (start)"), blank=True, null=True)
+    reading_date_end = models.DateTimeField(_("Reading date (end)"), blank=True, null=True)
     status = models.BooleanField(_("Currently reading?"), default= False)
+    file = models.FileField(upload_to='BookPDF/', validators=[validate_file_extension])
+    page_num_for_cover = models.IntegerField(default=1)
+    cover_image = models.ImageField(upload_to='BookCovers/', null=True, blank=True)
+
+    
+    def save_cover_as_image(self):
+        if self.file and self.page_num_for_cover:
+            pdf_path = os.path.join(MEDIA_ROOT, str(self.file))
+            with fitz.open(pdf_path) as pdf_doc:
+                page = pdf_doc.load_page(self.page_num_for_cover - 1)
+                pixmap = page.get_pixmap()
+                
+                # Convert Pixmap to PIL Image
+                img = Image.frombytes("RGB", [pixmap.width, pixmap.height], pixmap.samples)
+                
+                # Save the image to a temporary buffer
+                buffer = BytesIO()
+                img.save(buffer, format='JPEG')
+                buffer.seek(0)
+
+                # Save the buffer as the cover image
+                self.cover_image.save(f"{self.name}_cover.jpg", ContentFile(buffer.read()), save=False)
+                
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.save_cover_as_image()
+        super().save(*args, **kwargs)
+        
+    def __str__(self) -> str:
+        return self.name

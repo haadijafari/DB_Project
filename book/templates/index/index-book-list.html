@@ -7,8 +7,7 @@
     <div class="container">
 
         <div class="section-title">
-            <h1 class="text-primary">Book</h1>
-            <p>Your book library</p>
+            <h1 class="text-primary mb-5">Book Library</h1>
         </div>
 
         {% post_categories %}
@@ -20,15 +19,24 @@
           filter-{{cat.name}} 
           {% endfor %}
           ">
-            <div class="book-wrap">
-              <img src="{% static 'img/test/wolf.jpg' %}" class="img-fluid" alt="{{book.name}} Image">
+          {% if book.status or book.reading_date_start|compare_to_now and not book.reading_date_end|compare_to_now %}
+            <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-success currently-reading">Currently Reading</div>
+          {% else %}
+            <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger currently-reading">Currently Not Reading</div>
+          {% endif %}
+          <a href="{{book.file.url}}" class="book-wrap d-block" target="_blank">
+              <img src="{{book.cover_image.url}}" class="img-fluid" alt="{{book.name}} Image">
               <div class="book-info">
-                <h4>{{book.name}}</h4>
-                {% for cat in book.category.all %}
-                  <p>{{cat.name}}</p>
-                {% endfor %}
+                <h3>{{book.name}}</h3>
+                <h4><i class="bi bi-person-fill text-white"></i> {{book.author}}</h4>
+                <div class="d-flex gap-2">
+                  {% for cat in book.category.all %}
+                    <span class="text-white"><i class="bi bi-tag text-white"></i> {{cat.name}}</span>
+                  {% endfor %}
+                </div>
+                <p class="text-white">{% if book.reading_date_start %}{{book.reading_date_start|naturaltime}}{% else %}(Not set){% endif %} - {% if book.reading_date_end %}{{book.reading_date_end|naturaltime}}{% else %}(Not set){% endif %}</p>
               </div>
-            </div>
+            </a>
           </div>
           {% endfor %}
         </div>
