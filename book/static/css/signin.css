@@ -1,0 +1,52 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 400px;
+}
+
+.form-signin {
+    /* background-color: var(--bs-success); */
+    padding: 15px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-signin img {
+    border-radius: 50%;
+}
+
+.form-signin h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.form-signin input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-signin button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-signin button:hover {
+    background-color: #0056b3;
+}
+
+.text-muted {
+    color: #777;
+    font-size: 12px;
+}

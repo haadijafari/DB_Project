@@ -1,15 +1,21 @@
 <nav class="py-2 bg-body-tertiary border-bottom sticky-top">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#book" class="nav-link link-body-emphasis px-2">Book Library</a></li>
+        <li class="nav-item"><a href="{% url 'index:index' %}#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="{% url 'index:index' %}#book" class="nav-link link-body-emphasis px-2">Book Library</a></li>
       </ul>
       <ul class="nav">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Login</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Sign up</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item"><a href="{% url 'index:index' %}" class="nav-link link-body-emphasis px-2">Logged in as {{request.user.username}}</a></li>
+        <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link link-body-emphasis px-2">Logout</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link link-body-emphasis px-2">Login</a></li>
+        <li class="nav-item"><a href="{% url 'accounts:signup' %}" class="nav-link link-body-emphasis px-2">Sign up</a></li>
+        {% endif %}
       </ul>
     </div>
 </nav>
+{% if request.path == "/" %}
 <header class="py-3 mb-4 border-bottom">
     <div class="container d-flex flex-wrap justify-content-center">
       <span class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis fs-4">
@@ -20,3 +26,4 @@
       </form>
     </div>
 </header>
+{% endif %}
