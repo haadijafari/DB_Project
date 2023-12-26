@@ -3,16 +3,12 @@
 {% load index_tags %}
 
 <!-- ======= Book Section ======= -->
-<section id="book" class="book shadow-lg my-5 ms-4 ms-lg-2 me-4 p-5">
+<section id="book" class="book shadow-lg mb-5 ms-4 ms-lg-2 me-4 p-5">
     <div class="container">
 
-        <div class="section-title">
-            <h1 class="text-primary mb-5">Book Library</h1>
-        </div>
-
         {% user_post_categories username %}
-
-        <div class="row book-container">
+        {% include "index/index-home.html" %}
+        <div class="row book-container mt-5">
           {% for book in books %}
           <div class="col-lg-4 col-md-6 book-item
           {% for cat in book.category.all %}
@@ -24,7 +20,36 @@
           {% else %}
             <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger currently-reading">Currently Not Reading</div>
           {% endif %}
-          <a href="{{book.file.url}}" class="book-wrap d-block" target="_blank">
+          <a href="{{book.file.url}}" class="book-wrap d-block" target="_blank"
+              data-bs-toggle="tooltip" data-bs-placement="bottom"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-html="true"
+              data-bs-title="
+              {% for tag in book.tag.all %}
+                  #{{ tag.name }}{% if not forloop.last %},{% endif %}
+              {% endfor %}
+              {% if not book.tag.all %}
+              No tags{% endif %}
+              <br>
+              {% if book.reading_date_start %}{{book.reading_date_start|naturaltime}}{% else %}(Not set){% endif %} - {% if book.reading_date_end %}{{book.reading_date_end|naturaltime}}{% else %}(Not set){% endif %}
+              <br>
+              Shabak: {{book.isbn}}
+              <br>
+              Age Group: {% if book.age_group == 1 %}
+              الف
+              {% elif book.age_group == 2 %}
+              ب
+              {% elif book.age_group == 3 %}
+              ج
+              {% elif book.age_group == 4 %}
+              د
+              {% elif book.age_group == 5 %}
+              هـ
+              {% elif book.age_group == 6 %}
+              Undefined
+              {% endif %}
+
+              ">
               <img src="{{book.cover_image.url}}" class="img-fluid" alt="{{book.name}} Image">
               <div class="book-info">
                 <h3>{{book.name}}</h3>
@@ -34,7 +59,6 @@
                     <span class="text-white"><i class="bi bi-tag text-white"></i> {{cat.name}}</span>
                   {% endfor %}
                 </div>
-                <p class="text-white">{% if book.reading_date_start %}{{book.reading_date_start|naturaltime}}{% else %}(Not set){% endif %} - {% if book.reading_date_end %}{{book.reading_date_end|naturaltime}}{% else %}(Not set){% endif %}</p>
               </div>
             </a>
           </div>

@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Book</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-5.3.2/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons-1.11.2/font/bootstrap-icons.min.css' %}">
+    <!-- Index CSS -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+
+<body>
+    <main class="container my-5">
+        <form method="post" action="{% url "index:new_book" %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Name -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <!-- ISBN -->
+            <div class="mb-3">
+                <label for="isbn" class="form-label">Shabak</label>
+                <input type="text" class="form-control" id="isbn" name="isbn" required>
+            </div>
+
+            <!-- Author -->
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="author" name="author" required>
+            </div>
+
+            <!-- Age Group -->
+            <div class="mb-3">
+                <label for="age_group" class="form-label">Age Group</label>
+                <select class="form-select" id="age_group" name="age_group">
+                    <option value="6">Undefined</option>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">J</option>
+                    <option value="4">D</option>
+                    <option value="5">H</option>
+                </select>
+            </div>
+
+            <!-- Tag (using tags-input library) -->
+            <div class="mb-3">
+                <label for="tag" class="form-label">Tag</label>
+                <input type="text" class="form-control" id="tag" name="tag">
+                <!-- You may include the necessary JavaScript and CSS for the tags-input library here -->
+            </div>
+
+            <!-- Category -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Category(s)</label>
+                <select class="form-select" id="category" name="category" multiple>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Reading Date Start -->
+            <div class="mb-3">
+                <label for="reading_date_start" class="form-label">Reading Date (Start)</label>
+                <input type="datetime-local" class="form-control" id="reading_date_start" name="reading_date_start">
+            </div>
+
+            <!-- Reading Date End -->
+            <div class="mb-3">
+                <label for="reading_date_end" class="form-label">Reading Date (End)</label>
+                <input type="datetime-local" class="form-control" id="reading_date_end" name="reading_date_end">
+            </div>
+
+            <!-- Status -->
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="status" name="status">
+                <label class="form-check-label" for="status">Currently Reading?</label>
+            </div>
+
+            <!-- File Upload -->
+            <div class="mb-3">
+                <label for="file" class="form-label">File</label>
+                <input type="file" class="form-control" id="file" name="file" accept=".pdf" required>
+            </div>
+
+            <!-- Page Number for Cover -->
+            <div class="mb-3">
+                <label for="page_num_for_cover" class="form-label">Page Number for Cover</label>
+                <input type="number" class="form-control" id="page_num_for_cover" name="page_num_for_cover" value="1">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </main>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'vendor/bootstrap-5.3.2/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+<section id="tags" class="container">
+    <h1>Tags</h1>
+    {% for tag in tags %}
+    <a href="{% url "index:tag" tag_name=tag.name %}" class="text-decoration-none m-2">#{{ tag }}</a>
+    {% endfor %}
+</section>

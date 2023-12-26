@@ -34,7 +34,7 @@ class Book(models.Model):
                                              (5, _("H")),
                                              (6, _("Undefined"))),
                                     default=6)
-    tag = TaggableManager()
+    tag = TaggableManager(blank=True)
     category = models.ManyToManyField(
         "index.Category", verbose_name=_("Category(s)"), blank=True)
     created_date = models.DateTimeField(

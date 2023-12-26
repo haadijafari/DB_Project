@@ -1,3 +1,4 @@
+{% load index_tags %}
 <nav class="py-2 bg-body-tertiary border-bottom sticky-top">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
@@ -15,15 +16,16 @@
       </ul>
     </div>
 </nav>
-{% if request.path == "/" %}
+{% if request.user.is_authenticated %}
 <header class="py-3 mb-4 border-bottom">
     <div class="container d-flex flex-wrap justify-content-center">
       <span class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis fs-4">
         <i class="bi bi-search text-white me-2"></i>
         Search</span>
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search" action="{% url 'index:search' %}">
+        <input name="search" type="text" class="form-control" placeholder="Search..." aria-label="Search">
       </form>
     </div>
 </header>
+{% user_tags request.user.username %}
 {% endif %}
