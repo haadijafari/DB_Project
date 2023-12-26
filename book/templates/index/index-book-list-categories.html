@@ -3,7 +3,7 @@
         <ul id="book-flters">
         <li data-filter="*" class="filter-active position-relative">All <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">{{all_cat_count}}</span></li>
         {% for cat, count in categories.items %}
-        <li data-filter=".filter-{{cat.name}}" class="position-relative">{{cat.name}} <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">{{count}}</span></li>
+        <li data-filter=".filter-{{cat}}" class="position-relative">{{cat}} <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">{{count}}</span></li>
         {% endfor %}
         </ul>
     </div>

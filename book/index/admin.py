@@ -7,15 +7,13 @@ class BookAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     list_display = (
         'name',
+        'user',
         'author',
         'status',
         'age_group',
-        'created_date',
-        'reading_date_start',
-        'reading_date_end',
     )
     
-    list_filter = ('status', 'category', 'reading_date_start', 'reading_date_end', )
+    list_filter = ('status', 'category', 'user', 'author', 'tag')
     search_fields = ('name', 'author', )
 
 

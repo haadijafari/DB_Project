@@ -10,7 +10,7 @@
             <h1 class="text-primary mb-5">Book Library</h1>
         </div>
 
-        {% post_categories %}
+        {% user_post_categories username %}
 
         <div class="row book-container">
           {% for book in books %}

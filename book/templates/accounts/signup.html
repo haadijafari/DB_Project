@@ -31,7 +31,7 @@
     <form class="form-signin container" method="post" action="{% url 'accounts:signup' %}" >
         {% csrf_token %}
         <img class="mb-4" src="{% static 'vendor/bootstrap-icons-1.11.2/person-fill.svg' %}" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal text-light">Please Sign Up</h1>
+        <h1 class="h3 mb-3 font-weight-normal text-light">Sign Up</h1>
 
         <input type="text" name="username" class="form-control mt-2" placeholder="Username" required autofocus>
         {% if form.username.errors %}

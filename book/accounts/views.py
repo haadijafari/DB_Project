@@ -8,9 +8,7 @@ def login_view(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
             form = AuthenticationForm(request=request,data=request.POST)
-            if not form.is_valid():
-                print('Thiiiiis')
-                print(form.errors)
+
             if form.is_valid():
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
@@ -42,7 +40,8 @@ def signup_view(request):
                 user = form.save(commit=False)
                 user.is_valid = False
                 user.save()
-                return redirect('/')
+                messages.success(request, 'Registration successful. Please Login!')
+                return redirect('accounts:login')
             else:
                 messages.error(request, 'Invalid registration details')
                 context = {'form': form}

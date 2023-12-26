@@ -51,7 +51,11 @@
 
     <!-- Main -->
     <main>
-        {% all_books %}
+      {% if user.is_authenticated %}
+          {% user_books user.get_username %}
+      {% else %}
+          <p>Welcome, new user. Please log in.</p>
+      {% endif %}
     </main>
 
     <!-- JS Vendors -->
